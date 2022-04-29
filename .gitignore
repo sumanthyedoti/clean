@@ -5,3 +5,4 @@ coverage/
 .tern-port
 test/src/**/*.js
 playground
+json-parser.js
