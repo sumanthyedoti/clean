@@ -18,16 +18,13 @@ numberParser input =
 
 stringParser input
   | input[0] != '"' = null
-  | otherwise = getString (input.slice 1) 0
-  where getString input i = if input[i] == '"'
-                                then if input[j].charCodeAt 0 == 92
-                                      then getString input (i + 1)
-                                      else input.slice 0 i
-                                else if input[i] then getString input (i + 1) else null
-                                where j = i - 1
+  | res == null = null
+  | otherwise = [res[0], input.slice res[0].length]
+  where regex = /^"(?:\\"|[^"])*(?<=[^\\])"/g
+        res = regex.exec input
 
 print (nullParser 'null, 234.343e+2, "Hello \\"Geek\\"", ')
 print (boolParser 'true, 234.343e+2, "Hello \\"Geek\\""')
 print (boolParser 'false, 234.343e+2, "Hello \\"Geek\\""')
 print (numberParser '123.343e+2, "Hello \\"Geek\\""')
-print (stringParser '"Hello \\"Geek\\""')
+print (stringParser '"Hello \u4646 \"Geek\""')
